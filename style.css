@@ -45,6 +45,42 @@ body {
     color: var(--text-light); /* Teks putih di atas background hitam */
 }
 
+/* Top-right navigation inside right column */
+.right-column {
+    position: relative;
+}
+
+.top-nav {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-btn {
+    background: rgba(255,255,255,0.06);
+    color: var(--secondary-color);
+    padding: 8px 12px;
+    border-radius: 18px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    .top-nav { top: 8px; right: 12px; gap: 6px; }
+    .nav-btn { padding: 6px 8px; font-size: 0.78rem; }
+}
+
 /* --- Bagian Header/Foto (Khusus Kolom Kiri) --- */
 
 
@@ -264,6 +300,48 @@ body {
     object-fit: cover;
     display: block;
     cursor: pointer;
+}
+
+/* Overlay menu on hover */
+.gallery-item {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.overlay-btn {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    backdrop-filter: blur(4px);
+}
+
+.overlay-btn:hover {
+    background: rgba(255,255,255,0.2);
 }
 
 /* Modal Lightbox */
