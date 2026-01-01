@@ -1,52 +1,53 @@
 
-const modal = document.getElementById("imageModal");
-const closeBtn = document.querySelector(".close");
-const modalImage = document.getElementById("modalImage");
-const captionText = document.getElementById("caption");
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('imageModal');
+  const closeBtn = modal ? modal.querySelector('.close') : null;
+  const modalImage = document.getElementById('modalImage');
+  const captionText = document.getElementById('caption');
 
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+  const images = galleryItems.map(item => {
+    const img = item.querySelector('img');
+    return img ? { src: img.src, alt: img.alt || '' } : null;
+  }).filter(Boolean);
 
-const galleryItems = document.querySelectorAll(".gallery-item");
+  let currentIndex = 0;
 
-galleryItems.forEach(item => {
-    const img = item.querySelector("img");
-    img.addEventListener("click", function() {
-        modal.style.display = "block";
-        modalImage.src = this.src;
-        captionText.textContent = this.alt;
+  function openModal(index) {
+    if (!modal || !modalImage) return;
+    currentIndex = (index + images.length) % images.length;
+    modalImage.src = images[currentIndex].src;
+    captionText.textContent = images[currentIndex].alt;
+    modal.style.display = 'block';
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.style.display = 'none';
+  }
+
+  galleryItems.forEach((item, idx) => {
+    const img = item.querySelector('img');
+    if (!img) return;
+    img.addEventListener('click', function(e) {
+      openModal(idx);
     });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', function(event) {
+      if (event.target === modal) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(event) {
+    if (!modal || modal.style.display !== 'block') return;
+    if (event.key === 'Escape') closeModal();
+    if (event.key === 'ArrowRight') openModal(currentIndex + 1);
+    if (event.key === 'ArrowLeft') openModal(currentIndex - 1);
+  });
 });
-
-closeBtn.addEventListener("click", function() {
-    modal.style.display = "none";
-});
-
-modal.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-});
-
-
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        modal.style.display = "none";
-    }
-});
-
-// Auto-scroll gallery to the right on load (so images appear shifted to the right)
-(function() {
-    const imageGallery = document.querySelector('.image-gallery');
-    if (!imageGallery) return;
-
-    function scrollGalleryToRight() {
-        // Move scroll to the maximum (right-most)
-        imageGallery.scrollLeft = imageGallery.scrollWidth;
-    }
-
-    // On load and shortly after resize, ensure gallery is scrolled to right
-    window.addEventListener('load', scrollGalleryToRight);
-    window.addEventListener('resize', () => setTimeout(scrollGalleryToRight, 120));
-    // If images are added later, observer will scroll to right
-    const ro = new MutationObserver(() => setTimeout(scrollGalleryToRight, 100));
-    ro.observe(imageGallery, { childList: true, subtree: true });
-})();
