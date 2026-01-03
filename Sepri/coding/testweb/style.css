@@ -1,0 +1,67 @@
+/* Aturan CSS Dasar untuk keseluruhan halaman */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Warna latar belakang abu-abu muda */
+    color: #333; /* Warna teks utama */
+    line-height: 1.6;
+}
+
+/* Styling untuk Header */
+header {
+    background-color: #007bff; /* Warna biru */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* Styling untuk Konten Utama */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 5px solid #007bff;
+}
+
+section h2 {
+    color: #007bff;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* Styling untuk List */
+.fitur ul {
+    list-style-type: square;
+    padding-left: 25px;
+}
+
+.fitur ul li {
+    margin-bottom: 5px;
+}
+
+
+/* Styling untuk Footer */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333; /* Warna abu-abu gelap */
+    color: white;
+    position: fixed; /* Menempatkan footer di bagian bawah */
+    bottom: 0;
+    width: 100%;
+}

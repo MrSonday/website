@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1001 Racing Shop.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div><img src=""></div>
+            </div>
+            <nav class="nav">
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="cart-icon">
+                <span>🛒</span>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Garasi 1001</h2>
+            <p>Your trusted source for quality car spare parts</p>
+            <button class="cta-btn">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Our Categories</h2>
+            
+            <!-- Category Filter Buttons -->
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="engine">Engine</button>
+                <button class="category-btn" data-category="braking">Braking</button>
+                <button class="category-btn" data-category="lighting">Lighting</button>
+                <button class="category-btn" data-category="belt">Belts & Hoses</button>
+                <button class="category-btn" data-category="electrical">Electrical</button>
+            </div>
+
+            <div class="products-grid">
+                <!-- Engine Category -->
+                <div class="product-card" data-category="engine">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Air+Filter" alt="Air Filter"></div>
+                    <h3>Air Filter</h3>
+                    <p class="category-tag">Engine</p>
+                    <p class="price">$15.99</p>
+                    <p class="description">High-quality engine air filter</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="engine">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Oil+Filter" alt="Oil Filter"></div>
+                    <h3>Oil Filter</h3>
+                    <p class="category-tag">Engine</p>
+                    <p class="price">$12.50</p>
+                    <p class="description">Premium synthetic oil filter</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="engine">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Spark+Plug" alt="Spark Plug"></div>
+                    <h3>Spark Plug</h3>
+                    <p class="category-tag">Engine</p>
+                    <p class="price">$8.99</p>
+                    <p class="description">Iridium spark plugs set</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <!-- Braking Category -->
+                <div class="product-card" data-category="braking">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Brake+Pads" alt="Brake Pads"></div>
+                    <h3>Brake Pads</h3>
+                    <p class="category-tag">Braking</p>
+                    <p class="price">$45.99</p>
+                    <p class="description">Ceramic brake pads set</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="braking">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Brake+Disc" alt="Brake Disc"></div>
+                    <h3>Brake Disc</h3>
+                    <p class="category-tag">Braking</p>
+                    <p class="price">$65.50</p>
+                    <p class="description">Ventilated brake disc rotor</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="braking">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Brake+Fluid" alt="Brake Fluid"></div>
+                    <h3>Brake Fluid</h3>
+                    <p class="category-tag">Braking</p>
+                    <p class="price">$9.99</p>
+                    <p class="description">DOT 4 brake fluid</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <!-- Lighting Category -->
+                <div class="product-card" data-category="lighting">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=LED+Headlight" alt="LED Headlight"></div>
+                    <h3>LED Headlight</h3>
+                    <p class="category-tag">Lighting</p>
+                    <p class="price">$89.99</p>
+                    <p class="description">Modern LED headlight bulb</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="lighting">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Tail+Light" alt="Tail Light"></div>
+                    <h3>Tail Light Assembly</h3>
+                    <p class="category-tag">Lighting</p>
+                    <p class="price">$55.00</p>
+                    <p class="description">Complete tail light assembly</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="lighting">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Fog+Light" alt="Fog Light"></div>
+                    <h3>Fog Light</h3>
+                    <p class="category-tag">Lighting</p>
+                    <p class="price">$42.50</p>
+                    <p class="description">Fog light bulb set</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <!-- Belts & Hoses Category -->
+                <div class="product-card" data-category="belt">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Drive+Belt" alt="Drive Belt"></div>
+                    <h3>Drive Belt</h3>
+                    <p class="category-tag">Belts & Hoses</p>
+                    <p class="price">$28.50</p>
+                    <p class="description">Serpentine drive belt</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="belt">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Radiator+Hose" alt="Radiator Hose"></div>
+                    <h3>Radiator Hose</h3>
+                    <p class="category-tag">Belts & Hoses</p>
+                    <p class="price">$18.75</p>
+                    <p class="description">Premium rubber radiator hose</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="belt">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Heater+Hose" alt="Heater Hose"></div>
+                    <h3>Heater Hose</h3>
+                    <p class="category-tag">Belts & Hoses</p>
+                    <p class="price">$15.25</p>
+                    <p class="description">Reinforced heater hose</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <!-- Electrical Category -->
+                <div class="product-card" data-category="electrical">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Battery" alt="Battery"></div>
+                    <h3>Battery</h3>
+                    <p class="category-tag">Electrical</p>
+                    <p class="price">$120.00</p>
+                    <p class="description">12V automotive battery</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="electrical">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Alternator" alt="Alternator"></div>
+                    <h3>Alternator</h3>
+                    <p class="category-tag">Electrical</p>
+                    <p class="price">$180.00</p>
+                    <p class="description">100A automotive alternator</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card" data-category="electrical">
+                    <div class="product-image"><img src="https://via.placeholder.com/250x250?text=Starter+Motor" alt="Starter Motor"></div>
+                    <h3>Starter Motor</h3>
+                    <p class="category-tag">Electrical</p>
+                    <p class="price">$150.00</p>
+                    <p class="description">High-performance starter motor</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Garasi 1001 has been serving car enthusiasts and mechanics since 2010. 
+               We provide only the highest quality spare parts for all vehicle types.</p>
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <h4>Quality Guaranteed</h4>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <h4>Fast Shipping</h4>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <h4>24/7 Support</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <p>📍 123 Auto Street, Car City, CC 12345</p>
+                <p>📞 (555) 123-4567</p>
+                <p>📧 info@garasi1001.com</p>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Garasi 1001. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
