@@ -1,53 +1,37 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const captionText = document.getElementById('caption');
+    const closeBtn = document.querySelector('.close');
+    const galleryImages = document.querySelectorAll('.gallery-item img');
 
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('imageModal');
-  const closeBtn = modal ? modal.querySelector('.close') : null;
-  const modalImage = document.getElementById('modalImage');
-  const captionText = document.getElementById('caption');
+    let currentIndex = 0;
 
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-  const images = galleryItems.map(item => {
-    const img = item.querySelector('img');
-    return img ? { src: img.src, alt: img.alt || '' } : null;
-  }).filter(Boolean);
+    // Fungsi membuka modal
+    const openModal = (index) => {
+        currentIndex = (index + galleryImages.length) % galleryImages.length;
+        modalImage.src = galleryImages[currentIndex].src;
+        captionText.textContent = galleryImages[currentIndex].alt;
+        modal.style.display = 'block';
+    };
 
-  let currentIndex = 0;
-
-  function openModal(index) {
-    if (!modal || !modalImage) return;
-    currentIndex = (index + images.length) % images.length;
-    modalImage.src = images[currentIndex].src;
-    captionText.textContent = images[currentIndex].alt;
-    modal.style.display = 'block';
-  }
-
-  function closeModal() {
-    if (!modal) return;
-    modal.style.display = 'none';
-  }
-
-  galleryItems.forEach((item, idx) => {
-    const img = item.querySelector('img');
-    if (!img) return;
-    img.addEventListener('click', function(e) {
-      openModal(idx);
+    // Event listener untuk setiap gambar di gallery
+    galleryImages.forEach((img, idx) => {
+        img.addEventListener('click', () => openModal(idx));
     });
-  });
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeModal);
-  }
-
-  if (modal) {
-    modal.addEventListener('click', function(event) {
-      if (event.target === modal) closeModal();
+    // Event klik untuk tutup modal (tombol X atau klik area luar)
+    [closeBtn, modal].forEach(element => {
+        element?.addEventListener('click', (e) => {
+            if (e.target === modal || e.target === closeBtn) modal.style.display = 'none';
+        });
     });
-  }
 
-  document.addEventListener('keydown', function(event) {
-    if (!modal || modal.style.display !== 'block') return;
-    if (event.key === 'Escape') closeModal();
-    if (event.key === 'ArrowRight') openModal(currentIndex + 1);
-    if (event.key === 'ArrowLeft') openModal(currentIndex - 1);
-  });
+    // Kontrol Keyboard
+    document.addEventListener('keydown', (e) => {
+        if (modal.style.display !== 'block') return;
+        if (e.key === 'Escape') modal.style.display = 'none';
+        if (e.key === 'ArrowRight') openModal(currentIndex + 1);
+        if (e.key === 'ArrowLeft') openModal(currentIndex - 1);
+    });
 });
