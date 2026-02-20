@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Digital Dash</title>
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-red: #ff3131;
+            --neon-green: #39ff14;
+            --dark-bg: #050505;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* START SCREEN OVERLAY */
+        #start-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #111 0%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        .logo-circle {
+            width: 150px;
+            height: 150px;
+            border: 5px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            font-weight: bold;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px var(--neon-blue); }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px var(--neon-blue); }
+            100% { transform: scale(1); box-shadow: 0 0 20px var(--neon-blue); }
+        }
+
+        .btn-start {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            letter-spacing: 3px;
+            transition: 0.3s;
+        }
+
+        .btn-start:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        /* MAIN DASHBOARD */
+        .dashboard {
+            display: flex;
+            width: 95vw;
+            height: 60vh;
+            background: #111;
+            border-radius: 100px / 50px;
+            border: 4px solid #333;
+            padding: 20px;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8), 0 0 50px rgba(0,242,255,0.1);
+            position: relative;
+        }
+
+        .side-panel { width: 20%; text-align: center; }
+
+        .center-panel {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* SPEEDOMETER */
+        .speed-gauge {
+            width: 280px;
+            height: 280px;
+            border: 10px solid #222;
+            border-top: 10px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 0.1s;
+        }
+
+        #speed-num { font-size: 100px; margin: 0; font-weight: bold; text-shadow: 0 0 20px var(--neon-blue); }
+        
+        /* INDICATORS */
+        .indicator-row {
+            position: absolute;
+            top: 50px;
+            display: flex;
+            gap: 50px;
+            font-size: 2rem;
+        }
+
+        .off { color: #222; }
+        .on-green { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
+        .on-red { color: var(--neon-red); text-shadow: 0 0 15px var(--neon-red); }
+
+        /* GEAR & STATS */
+        .gear-display { font-size: 3rem; font-weight: bold; color: white; margin-top: 10px; }
+        .stat-label { color: #666; font-size: 0.8rem; text-transform: uppercase; }
+        .stat-value { font-size: 1.5rem; margin-bottom: 20px; }
+
+        /* FUEL BAR */
+        .fuel-container {
+            width: 100%;
+            height: 10px;
+            background: #222;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        #fuel-fill { width: 80%; height: 100%; background: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); transition: 1s; }
+
+        .hidden { opacity: 0; visibility: hidden; }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <div class="logo-circle">G</div>
+        <h2 style="letter-spacing: 5px; margin-bottom: 30px;">GEMINI GT</h2>
+        <button class="btn-start" onclick="initEngine()">START ENGINE</button>
+    </div>
+
+    <div class="dashboard">
+        
+        <div class="indicator-row">
+            <span id="ind-left" class="off">◀</span>
+            <span id="ind-oil" class="off">🛢️</span>
+            <span id="ind-engine" class="off">⚠️</span>
+            <span id="ind-right" class="off">▶</span>
+        </div>
+
+        <div class="side-panel">
+            <div class="stat-label">Engine RPM</div>
+            <div id="rpm-val" class="stat-value">0</div>
+            
+            <div class="stat-label">Coolant Temp</div>
+            <div class="stat-value">90°C</div>
+        </div>
+
+        <div class="center-panel">
+            <div class="speed-gauge" id="gauge">
+                <h1 id="speed-num">0</h1>
+                <div style="color: var(--neon-blue); letter-spacing: 2px;">KM/H</div>
+            </div>
+            <div class="gear-display" id="gear-num">P</div>
+        </div>
+
+        <div class="side-panel">
+            <div class="stat-label">Fuel Level</div>
+            <div class="fuel-container"><div id="fuel-fill"></div></div>
+            <div style="text-align: right; font-size: 0.7rem;">80%</div>
+
+            <br>
+            <div class="stat-label">Range</div>
+            <div class="stat-value">420 KM</div>
+        </div>
+    </div>
+
+    <script>
+        let speed = 0;
+        let rpm = 0;
+        let gear = 'P';
+        let engineOn = false;
+        let isBlinkingLeft = false;
+        let isBlinkingRight = false;
+
+        // Elements
+        const speedEl = document.getElementById('speed-num');
+        const rpmEl = document.getElementById('rpm-val');
+        const gearEl = document.getElementById('gear-num');
+        const gaugeEl = document.getElementById('gauge');
+
+        function initEngine() {
+            document.getElementById('start-screen').classList.add('hidden');
+            engineOn = true;
+            
+            // Animasi Welcome Scan
+            setTimeout(() => {
+                document.getElementById('ind-oil').classList.add('on-red');
+                document.getElementById('ind-engine').classList.add('on-red');
+                rpm = 800; // Idle RPM
+                gear = 'N';
+                updateDisplay();
+                
+                setTimeout(() => {
+                    document.getElementById('ind-oil').classList.replace('on-red', 'off');
+                    document.getElementById('ind-engine').classList.replace('on-red', 'off');
+                }, 2000);
+            }, 500);
+        }
+
+        function updateDisplay() {
+            speedEl.innerText = Math.floor(speed);
+            rpmEl.innerText = Math.floor(rpm);
+            gearEl.innerText = gear;
+
+            // Efek warna gauge jika ngebut
+            if (speed > 120) {
+                gaugeEl.style.borderColor = 'var(--neon-red)';
+            } else {
+                gaugeEl.style.borderColor = 'var(--neon-blue)';
+            }
+        }
+
+        // Kontrol Input
+        window.addEventListener('keydown', (e) => {
+            if (!engineOn) return;
+
+            if (e.key === 'ArrowUp') {
+                speed += 2;
+                rpm += 100;
+                if (speed > 0) gear = Math.min(Math.floor(speed / 40) + 1, 6);
+            }
+            if (e.key === 'ArrowDown') {
+                speed = Math.max(0, speed - 3);
+                rpm = Math.max(800, rpm - 150);
+            }
+            if (e.key.toLowerCase() === 'q') toggleSein('left');
+            if (e.key.toLowerCase() === 'e') toggleSein('right');
+            
+            updateDisplay();
+        });
+
+        // Loop untuk penurunan alami (friction)
+        setInterval(() => {
+            if (engineOn) {
+                if (speed > 0) {
+                    speed -= 0.2;
+                    rpm -= 10;
+                }
+                updateDisplay();
+            }
+        }, 50);
+
+        // Fungsi Sein
+        function toggleSein(side) {
+            const el = document.getElementById(`ind-${side}`);
+            if (side === 'left') {
+                isBlinkingLeft = !isBlinkingLeft;
+                if(isBlinkingLeft) blink(el);
+            } else {
+                isBlinkingRight = !isBlinkingRight;
+                if(isBlinkingRight) blink(el);
+            }
+        }
+
+        function blink(el) {
+            if (el.classList.contains('off')) {
+                el.classList.replace('off', 'on-green');
+            } else {
+                el.classList.replace('on-green', 'off');
+            }
+            
+            if (isBlinkingLeft && el.id === 'ind-left') setTimeout(() => blink(el), 500);
+            else if (isBlinkingRight && el.id === 'ind-right') setTimeout(() => blink(el), 500);
+            else el.classList.replace('on-green', 'off');
+        }
+    </script>
+</body>
+</html>
